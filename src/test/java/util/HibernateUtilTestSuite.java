@@ -1,4 +1,4 @@
-package util;
+package com.revature.bibimbop.util;
 
 import org.hibernate.Session;
 import org.junit.jupiter.api.Assertions;
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 
-import static bibimbop.util.HibernateUtil.getSession;
+import static com.revature.bibimbop.HibernateUtil.getSession;
 
 public class HibernateUtilTestSuite {
 
