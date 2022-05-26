@@ -2,7 +2,6 @@ package com.revature.bibimbop.util.web.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.bibimbop.order.OrderDao;
-import com.revature.bibimbop.order.OrderServlet;
 import com.revature.bibimbop.menu.MenuDao;
 import com.revature.bibimbop.menu.MenuServlet;
 import com.revature.bibimbop.credit_card.CreditCardDao;
