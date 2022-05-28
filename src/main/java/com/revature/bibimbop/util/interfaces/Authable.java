@@ -17,5 +17,5 @@ public interface Authable {
         return true;
     }
 }
-© 2022 GitHub, Inc.
+
 

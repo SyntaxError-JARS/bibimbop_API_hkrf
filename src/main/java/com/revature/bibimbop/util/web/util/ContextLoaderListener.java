@@ -10,7 +10,7 @@ import com.revature.bibimbop.customer.CustomerDao;
 import com.revature.bibimbop.customer.CustomerServlet;
 
 import com.revature.bibimbop.order.OrderServices;
-import com.revature.bibimbop.credit_card.ElementTypeServices;
+import com.revature.bibimbop.credit_card.creditCardServices;
 import com.revature.bibimbop.menu.MenuServices;
 import com.revature.bibimbop.customer.CustomerServices;
 
@@ -29,7 +29,7 @@ public class ContextLoaderListener implements ServletContextListener {
         // Make our single ObjectMapper instance
         ObjectMapper mapper = new ObjectMapper();
 
-        // Instantiate all Daos first
+        // Instantiate all Dao first
         CustomerDao customerDao = new CustomerDao();
         CreditCardDao creditCardDao = new CreditCardDao();
         MenuDao menuDao = new MenuDao();
