@@ -1,6 +1,6 @@
 package com.revature.bibimbop.menu;
 
-import com.revature.bibimbop.menu.MenuType;
+import com.revature.bibimbop.order.Order;
 import com.revature.bibimbop.util.HibernateUtil;
 import com.revature.bibimbop.util.interfaces.Crudable;
 import org.hibernate.HibernateException;
@@ -33,7 +33,7 @@ public class MenuDao implements Crudable<Menu> {
         try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
-            List<Menu> abilities = session.createQuery("FROM Menu").list();
+            List<Menu> abilities = session.createQuery("FROM Ability").list();
             transaction.commit();
             return abilities;
         } catch (HibernateException | IOException e) {
