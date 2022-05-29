@@ -49,7 +49,7 @@ public class CreditCardDao implements Crudable<CreditCard> {
         try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
-            Creditcard creditcard = session.load(Credit.class, username);
+            Creditcard creditcard = session.get(CreditCard.class, username);
             transaction.commit();
             return creditcard;
         } catch (HibernateException | IOException e) {
@@ -81,7 +81,7 @@ public class CreditCardDao implements Crudable<CreditCard> {
         try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
-            session.remove(CreditCard);
+            session.remove(creditCard);
             transaction.commit();
             return true;
         } catch (HibernateException | IOException e) {

@@ -1,10 +1,7 @@
 package com.revature.bibimbop.credit_card;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.bibimbop.exceptions.ResourcePersistenceException;
-import com.revature.bibimbop.credit_card.CreditCard;
-import com.revature.bibimbop.credit_card.CreditCardServices;
-
+import com.revature.bibimbop.util.exceptions.ResourcePersistenceException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
