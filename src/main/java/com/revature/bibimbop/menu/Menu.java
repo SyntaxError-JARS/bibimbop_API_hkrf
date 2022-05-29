@@ -1,7 +1,5 @@
 package com.revature.bibimbop.menu;
 
-import com.revature.bibimbop.menu.Menu;
-
 import javax.persistence.*;
 import java.util.Objects;
 @Entity

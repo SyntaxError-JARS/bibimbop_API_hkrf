@@ -11,7 +11,7 @@ public class MenuServices implements Serviceable<Menu> {
     private final MenuDao menuDao;
 
     // DI - Dependency Injection
-    public MenuServices(OrderDao orderDao, MenuDao menuDao) {
+    public MenuServices(MenuDao menuDao) {
         this.orderDao = orderDao;
         this.menuDao = menuDao;
     }

@@ -10,10 +10,11 @@ import com.revature.bibimbop.customer.CustomerDao;
 import com.revature.bibimbop.customer.CustomerServlet;
 
 import com.revature.bibimbop.order.OrderServices;
-import com.revature.bibimbop.credit_card.creditCardServices;
+import com.revature.bibimbop.credit_card.CreditCardServices;
 import com.revature.bibimbop.menu.MenuServices;
 import com.revature.bibimbop.customer.CustomerServices;
 
+import com.revature.bibimbop.order.OrderServlet;
 import com.revature.bibimbop.util.web.servlets.*;
 
 import javax.servlet.ServletContext;
@@ -38,15 +39,15 @@ public class ContextLoaderListener implements ServletContextListener {
         // Instantiate and initialize the services with their dao dependency
         CustomerServices customerServices = new CustomerServices(customerDao);
         MenuServices menuServices = new MenuServices(menuDao);
-        OrderServices orderServices = new OrderServices(orderDao, orderDao);
-        CreditCardServices creditCardServices = new CreditCardServices(orderDao,creditcardDao, menuDao);
+        OrderServices orderServices = new OrderServices(orderDao);
+        CreditCardServices creditCardServices = new CreditCardServices(creditCardDao);
 
 
         AuthServlet authServlet = new AuthServlet(customerServices, mapper);
         CustomerServlet customerServlet = new CustomerServlet(customerServices, mapper);
-        MenuServlet menuServlet = new menuServlet(menuServices, mapper);
+        MenuServlet menuServlet = new MenuServlet(menuServices, mapper);
         OrderServlet orderServlet = new OrderServlet(orderServices, mapper);
-        CreditCardServlet creditCardServlet = new CreditCardServlet(creditCardDao, mapper);
+        CreditCardServlet creditCardServlet = new CreditCardServlet(creditCardServices, mapper);
 
         ServletContext context = sce.getServletContext();
         context.addServlet("AuthServlet", authServlet).addMapping("/auth");
