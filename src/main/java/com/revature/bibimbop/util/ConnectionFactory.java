@@ -49,7 +49,7 @@ public class ConnectionFactory {
 //        String password = "password";
 
         try {
-            conn = DriverManager.getConnection(prop.getProperty("url"), prop.getProperty("admin123"), prop.getProperty("$password123"));
+            conn = DriverManager.getConnection(prop.getProperty("url"), prop.getProperty("user"), prop.getProperty("password"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
