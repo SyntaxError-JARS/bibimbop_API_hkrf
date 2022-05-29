@@ -4,10 +4,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "credit_card")
-public class CreditCardData {
+public class CreditCard {
 
     @Id
-
 
     @Column(name = "cc_number")
 
@@ -17,24 +16,20 @@ public class CreditCardData {
 
     private int cvv;
 
-    @Column(name = "zip")
-    private  int zipCode;
-
     @Column(name = " customer_username")
     private String username;
 
 
 
-    public CreditCardData(String cardNumber, String cardName, int cvv, String expDate, int zipCode, int creditLimit, String username) {
+    public CreditCard(String cardNumber, String cardName,  String username) {
         super();
         this.cardNumber = cardNumber;
         this.cardName = cardName;
-        this.zipCode = zipCode;
         this.username = username;
     }
 
 
-    public CreditCardData() {
+    public CreditCard() {
 
     }
 
@@ -42,7 +37,6 @@ public class CreditCardData {
     public String getCardNumber() {
         return cardNumber;
     }
-
 
     public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
@@ -70,8 +64,6 @@ public class CreditCardData {
         return "CreditCardData{" +
                 "cardnumber='" + cardNumber + '\'' +
                 ", cardname='" + cardName + '\'' +
-                ", zipcode='" + zipCode + '\'' +
-                ", creditlimit='" + creditLimit + '\'' +
                 ", username='" + username + '\'' +
                 '}';
     }
