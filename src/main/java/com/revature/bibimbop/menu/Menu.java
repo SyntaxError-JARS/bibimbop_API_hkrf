@@ -6,66 +6,62 @@ import java.util.Objects;
 @Table(name = "menu")
 public class Menu {
     @Id
-    @Column(name = "menu_name")
-    private String menuName;
-    @Column(name = "menu_Selection")
-    private int menuSelection;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "selection_type", referencedColumnName = "id")
-    private MenuType menuType;
+    @Column(name = "item_name")
 
-    public Menu(String menuName, int menuSelection, MenuType menuType) {
-        this.menuName = menuName;
-        this.menuSelection = menuSelection;
-        this.menuType = menuType;
+    private String menuNumber;
+    private int cost;
+    private String protein;
+    @Column(name = "is_substitutable")
+    private boolean isSubstitutable;
+
+
+    public Menu(String menuNumber, int cost, String protein, boolean isSubstitutable) {
+        super();
+        this.menuNumber = menuNumber;
+        this.cost = cost;
+        this.protein = protein;
+        this.isSubstitutable = isSubstitutable;
     }
 
-    public Menu() {
+    public String getMenuNumber() {
+        return menuNumber;
     }
 
-    public String getMenuName() {
-        return menuName;
+    public void setMenuNumber(String menuNumber) {
+        this.menuNumber = menuNumber;
     }
 
-    public void setMenuName(String menuName) {
-        this.menuName = menuName;
+    public int getCost() {
+        return cost;
     }
 
-    public int getMenuSelection() {
-        return menuSelection;
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
-    public void setMenuSelection(int menuSelection) {
-        this.menuSelection = menuSelection;
+    public String getProtein() {
+        return protein;
     }
 
-    public MenuType getMenuType() {
-        return menuType;
+    public void setProtein(String protein) {
+        this.protein = protein;
     }
 
-    public void setMenuType(MenuType menuType) {
-        this.menuType = menuType;
+    public boolean getIsSubstitutable() {
+        return isSubstitutable;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Menu)) return false;
-        Menu menu = (Menu) o;
-        return getMenuSelection() == menu.getMenuSelection() && Objects.equals(getMenuName(), menu.getMenuName()) && Objects.equals(getElementType(), ability.getElementType());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getMenuName(), getMenuSelection(), getMenuType());
+    public void setIsSubstitutable(boolean isSubstitutable) {
+        this.isSubstitutable = isSubstitutable;
     }
 
     @Override
     public String toString() {
         return "Menu{" +
-                "menuName='" + menuName + '\'' +
-                ", menuSelection=" + menuSelection +
-                ", menuType=" + menuType +
+                "menuNumber='" + menuNumber + '\'' +
+                ", cost=" + cost +
+                ", protein=" + protein +
+                ", isSubstitutable=" + isSubstitutable +
                 '}';
     }
 }
