@@ -1,5 +1,6 @@
 package com.revature.bibimbop.credit_card;
 
+import com.revature.bibimbop.credit_card.CreditCard;
 import com.revature.bibimbop.util.HibernateUtil;
 import com.revature.bibimbop.util.interfaces.Crudable;
 import org.hibernate.HibernateException;

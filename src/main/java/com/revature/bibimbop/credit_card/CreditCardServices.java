@@ -56,6 +56,10 @@ public class CreditCardServices {
         if(newCreditCard == null) return false;
         if(newCreditCard.getCardNumber() == null || newCreditCard.getCardNumber().trim().equals((""))) return false;
         if(newCreditCard.getCardName() == null || newCreditCard.getCardName().trim().equals((""))) return false;
+        if(newCreditCard.getCvv() == 0 ) return false;
+        if(newCreditCard.getExpDate() == null || newCreditCard.getExpDate().trim().equals((""))) return false;
+        if(newCreditCard.getZipCode() == 0 ) return false;
+        if(newCreditCard.getCreditLimit() == 0 ) return false;
         if(newCreditCard.getUsername() == null || newCreditCard.getUsername().trim().equals((""))) return false;
         return true;
     }
