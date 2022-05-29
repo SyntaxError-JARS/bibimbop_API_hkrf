@@ -6,64 +6,51 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
 public class OrderServlet extends HttpServlet {
-    private final OrderServices orderServices;
+
+    private final OrderDao oDao;
     private final ObjectMapper mapper;
 
-    public OrderServlet(OrderServices orderServices, ObjectMapper mapper) {
-        this.orderServices = orderServices;
+    public OrderServlet(OrderDao oDao, ObjectMapper mapper) {
+        this.oDao = oDao;
         this.mapper = mapper;
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(req.getParameter("id") != null){
-            Order order = orderServices.readById(req.getParameter("id"));
-            String payload = mapper.writeValueAsString(order);
-            resp.getWriter().write(payload);
-            return;
-        }
+//    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        super.doOptions(req, resp);
+//        addHeads(req, resp);
+//    }
 
-        List<Order> elementTypes = orderServices.readAll();
-        String payload = mapper.writeValueAsString(elementTypes);
-
-        resp.getWriter().write(payload);
-    }
-
-    @Override
+    //CREATE
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        addHeads(req, resp);
+        OrderDTO pass = mapper.readValue(req.getInputStream(), OrderDTO.class);
 
-        Order order = mapper.readValue(req.getInputStream(), Order.class);
-        Order persistedOrder = orderServices.create(order);
+        OrderModel addedOrder = oDao.createCustomOrder(pass.getId(), pass.getMenuItem(), pass.getComment(), pass.getIsFavorite(), pass.getOrderDate(), pass.getCustomerUsername());
 
-        String payload = mapper.writeValueAsString(persistedOrder);
+        OrderModel theOrder = oDao.followUpCreateCustomOrder(pass.getId(), pass.getMenuItem(), pass.getComment(), pass.getIsFavorite(), pass.getOrderDate(), pass.getCustomerUsername());
+
+        String payload = mapper.writeValueAsString(theOrder);
+
+        resp.getWriter().write("Added the order, as seen below \n");
         resp.getWriter().write(payload);
         resp.setStatus(201);
-
     }
 
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    //READ
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        addHeads(req, resp);
+        OrderDTO pass = mapper.readValue(req.getInputStream(), OrderDTO.class);
 
-    }
+        OrderModel[] orders = oDao.viewAllByDate(pass.getTheDate());
 
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String payload = mapper.writeValueAsString(orders);
 
-    }
-
-    protected boolean checkAuth(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        HttpSession httpSession = req.getSession();
-        if(httpSession.getAttribute("authOrder") == null){
-            resp.getWriter().write("Unauthorized request - not log in as registered customer");
-            resp.setStatus(401); // Unauthorized
-            return false;
-        }
-        return true;
+        resp.getWriter().write("Orders populated, as seen below \n");
+        resp.getWriter().write(payload);
+        resp.setStatus(201);
     }
 
 }
