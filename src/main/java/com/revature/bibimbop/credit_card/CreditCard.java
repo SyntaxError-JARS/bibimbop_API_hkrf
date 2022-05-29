@@ -16,15 +16,26 @@ public class CreditCard {
 
     private int cvv;
 
+    @Column(name = "exp_date")
+    private String expDate;
+    @Column(name = "zip")
+    private  int zipCode;
+    @Column(name = "limit")
+    private int creditLimit;
+
     @Column(name = " customer_username")
     private String username;
 
 
 
-    public CreditCard(String cardNumber, String cardName,  String username) {
+    public CreditCard(String cardNumber, String cardName, int cvv, String expDate, int zipCode, int creditLimit, String username) {
         super();
         this.cardNumber = cardNumber;
         this.cardName = cardName;
+        this.cvv = cvv;
+        this.expDate = expDate;
+        this.zipCode = zipCode;
+        this.creditLimit = creditLimit;
         this.username = username;
     }
 
@@ -51,6 +62,39 @@ public class CreditCard {
         this.cardName = cardName;
     }
 
+    public int getCvv() {
+        return cvv;
+    }
+
+    public void setCvv(int cvv) {
+        this.cvv = cvv;
+    }
+
+    public String getExpDate() {
+        return expDate;
+    }
+
+    public void setExpDate(String expDate) {
+        this.expDate = expDate;
+    }
+
+    public int getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(int zipCode) {
+        this.zipCode = zipCode;
+
+    }
+
+    public int getCreditLimit() {
+        return creditLimit;
+    }
+
+    public void setCreditLimit(int creditLimit) {
+        this.creditLimit = creditLimit;
+    }
+
 
     public String getUsername() {
         return username;
@@ -64,6 +108,10 @@ public class CreditCard {
         return "CreditCardData{" +
                 "cardnumber='" + cardNumber + '\'' +
                 ", cardname='" + cardName + '\'' +
+                ", cvv='" + cvv + '\'' +
+                ", expdate='" + expDate + '\'' +
+                ", zipcode='" + zipCode + '\'' +
+                ", creditlimit='" + creditLimit + '\'' +
                 ", username='" + username + '\'' +
                 '}';
     }
