@@ -23,7 +23,7 @@ public class CreditCardServices {
             throw new InvalidRequestException("Credit card input was not validated, either empty Strings or null values");
         }
 
-        CreditCard persistedCreditCard = creditCardDao.Create(newCreditCardData);
+        CreditCard persistedCreditCard = creditCardDao.Create(newCreditCard);
         if(persistedCreditCard == null) {
             throw new ResourcePersistenceException("Credit card was not persisted to the database");
         }
@@ -55,7 +55,6 @@ public class CreditCardServices {
         if(newCreditCard == null) return false;
         if(newCreditCard.getCardNumber() == null || newCreditCard.getCardNumber().trim().equals((""))) return false;
         if(newCreditCard.getCardName() == null || newCreditCard.getCardName().trim().equals((""))) return false;
-        if(newCreditCard.getCvv() == 0 ) return false;
         if(newCreditCard.getExpDate() == null || newCreditCard.getExpDate().trim().equals((""))) return false;
         if(newCreditCard.getZipCode() == 0 ) return false;
         if(newCreditCard.getCreditLimit() == 0 ) return false;
