@@ -24,7 +24,7 @@
                     <configuration>
                         <url>http://localhost:8080/manager/text</url>
                         <server>LocalTomcat</server>
-                        <path>/poke_project</path>
+                        <path>/bibimbop</path>
                         <update>true</update>
                     </configuration>
                 </plugin>
