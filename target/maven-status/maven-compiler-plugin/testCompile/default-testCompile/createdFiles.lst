@@ -1,0 +1,4 @@
+MenuTestSuite/MenuDaoFindAllItemsTestSuite.class
+MenuTestSuite/MenuDaoCreateMenuTestSuite.class
+com/revature/bibimbop/util/ConnectionFactoryTestSuite.class
+OrderTestSuite/OrderDaoCreateOrderTestSuite.class
