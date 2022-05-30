@@ -5,7 +5,10 @@
 
 # Description
 
+Login, signup and view your order!!
+
 # User Story
+Customer can login, sign up and order !
 
 # Tech Stack
 <ul>
