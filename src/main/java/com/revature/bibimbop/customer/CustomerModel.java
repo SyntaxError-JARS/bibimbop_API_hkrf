@@ -21,6 +21,10 @@ public class CustomerModel {
         this.isAdmin = isAdmin;
     }
 
+    public CustomerModel() {
+
+    }
+
     public String getCustomerUsername() {
         return customerUsername;
     }
@@ -80,4 +84,6 @@ public class CustomerModel {
                 ", isAdmin=" + isAdmin +
                 '}';
     }
+
+
 }
