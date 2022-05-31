@@ -18,10 +18,7 @@ public class CreditCardServlet extends HttpServlet {
         this.mapper = mapper;
     }
 
-//    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        super.doOptions(req, resp);
-//        addHeads(req, resp);
-//    }
+
 
     //CREATE
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

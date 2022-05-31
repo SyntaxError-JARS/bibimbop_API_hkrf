@@ -7,7 +7,7 @@ public class CreditCardDTO {
     private Integer cvv;
     private String expDate;
     private Integer zip;
-    private Double limits;
+    private double limits;
     private String customerUsername;
     private String tableSelection;
     private String newCellName;
@@ -53,7 +53,7 @@ public class CreditCardDTO {
         this.zip = zip;
     }
 
-    public Double getLimits() {
+    public double getLimits() {
         return limits;
     }
 

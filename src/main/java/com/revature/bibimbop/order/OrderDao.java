@@ -27,7 +27,7 @@ public class OrderDao {
                 throw new RuntimeException();
             }
 
-            followUpCreateCustomOrder(id, menuItem,comment,isFavorite, orderDate, customerUsername);
+            followUpCreateCustomOrder(id);
 
         }catch (SQLException e){
             e.printStackTrace();
@@ -36,7 +36,7 @@ public class OrderDao {
         return null;
     }
 
-    public OrderModel followUpCreateCustomOrder(int id, String menuItem, String comment, int isFavorite, String orderDate, String customerUsername) {
+    public OrderModel followUpCreateCustomOrder(int id) {
         Connection conn = ConnectionFactory.getInstance().getConnection();
 
         try {

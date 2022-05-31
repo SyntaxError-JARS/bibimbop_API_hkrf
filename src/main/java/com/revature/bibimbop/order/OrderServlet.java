@@ -18,10 +18,7 @@ public class OrderServlet extends HttpServlet {
         this.mapper = mapper;
     }
 
-//    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        super.doOptions(req, resp);
-//        addHeads(req, resp);
-//    }
+
 
     //CREATE
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,7 +27,7 @@ public class OrderServlet extends HttpServlet {
 
         OrderModel addedOrder = oDao.createCustomOrder(pass.getId(), pass.getMenuItem(), pass.getComment(), pass.getIsFavorite(), pass.getOrderDate(), pass.getCustomerUsername());
 
-        OrderModel theOrder = oDao.followUpCreateCustomOrder(pass.getId(), pass.getMenuItem(), pass.getComment(), pass.getIsFavorite(), pass.getOrderDate(), pass.getCustomerUsername());
+        OrderModel theOrder = oDao.followUpCreateCustomOrder(pass.getId());
 
         String payload = mapper.writeValueAsString(theOrder);
 

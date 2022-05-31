@@ -7,10 +7,10 @@ public class CreditCardModel {
     private Integer cvv;
     private String expDate;
     private Integer zip;
-    private Double limits;
+    private double limits;
     private String customerUsername;
 
-    public CreditCardModel(String ccNumber, String ccName, Integer cvv, String expDate, Integer zip, Double limits, String customerUsername) {
+    public CreditCardModel(String ccNumber, String ccName, Integer cvv, String expDate, Integer zip, double limits, String customerUsername) {
         this.ccNumber = ccNumber;
         this.ccName = ccName;
         this.cvv = cvv;
@@ -64,11 +64,11 @@ public class CreditCardModel {
         this.zip = zip;
     }
 
-    public Double getLimits() {
+    public double getLimits() {
         return limits;
     }
 
-    public void setLimits(Double limits) {
+    public void setLimits(double limits) {
         this.limits = limits;
     }
 

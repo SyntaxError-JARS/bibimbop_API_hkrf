@@ -5,7 +5,7 @@ public class CustomerDTO {
     private String fName;
     private String lName;
     private String password;
-    private Double balance;
+    private double balance;
     private Integer isAdmin;
 
     public String getCustomerUsername() {
@@ -40,11 +40,11 @@ public class CustomerDTO {
         this.password = password;
     }
 
-    public Double getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
