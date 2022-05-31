@@ -1,6 +1,8 @@
 package com.revature.bibimbop.order;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.bibimbop.customer.CustomerDTO;
+import com.revature.bibimbop.customer.CustomerModel;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -46,6 +48,20 @@ public class OrderServlet extends HttpServlet {
         String payload = mapper.writeValueAsString(orders);
 
         resp.getWriter().write("Orders populated, as seen below \n");
+        resp.getWriter().write(payload);
+        resp.setStatus(201);
+    }
+
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        addHeads(req, resp);
+        OrderDTO pass = mapper.readValue(req.getInputStream(), OrderDTO.class);
+
+        OrderModel firstResult = oDao.createCustomOrder(pass.getId(), pass.getMenuItem(), pass.getComment(), pass.getIsFavorite(), pass.getOrderDate(), pass.getCustomerUsername());
+        OrderModel theObject = oDao.followUpCreateCustomOrder(pass.getId());
+
+        String payload = mapper.writeValueAsString(theObject);
+
+        resp.getWriter().write("Updated customer, as seen below \n");
         resp.getWriter().write(payload);
         resp.setStatus(201);
     }
