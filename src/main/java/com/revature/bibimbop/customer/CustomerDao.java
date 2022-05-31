@@ -136,7 +136,7 @@ public class CustomerDao {
     public CustomerModel updateCustomer(String customerUsername, String fName, String lName, String password, double balance, Integer isAdmin) {
         Connection conn = ConnectionFactory.getInstance().getConnection();
 
-        String sql = "update customer set fname = ?, lname = ?, password = ? balance = ? is_admin = ? where customer = ?";
+        String sql = "update customer set fname = ?, lname = ?, password = ? balance = ? is_admin = ? where customer_username = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, fName);
@@ -175,17 +175,17 @@ public class CustomerDao {
                 return null;
             }
 
-            CustomerModel updatedCustomer = new CustomerModel();
+            CustomerModel updateCustomer = new CustomerModel();
 
-            updatedCustomer.setCustomerUsername(rs.getString("customer_username"));
-            updatedCustomer.setfName(rs.getString("fname"));
-            updatedCustomer.setlName(rs.getString("lname"));
-            updatedCustomer.setPassword(rs.getString("password"));
-            updatedCustomer.setBalance(rs.getDouble("balance"));
-            updatedCustomer.setIsAdmin(rs.getInt("is_admin"));
+            updateCustomer.setCustomerUsername(rs.getString("customer_username"));
+            updateCustomer.setfName(rs.getString("fname"));
+            updateCustomer.setlName(rs.getString("lname"));
+            updateCustomer.setPassword(rs.getString("password"));
+            updateCustomer.setBalance(rs.getDouble("balance"));
+            updateCustomer.setIsAdmin(rs.getInt("is_admin"));
 
 
-            return updatedCustomer;
+            return updateCustomer;
 
         } catch (SQLException e) {
             e.printStackTrace();
