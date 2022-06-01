@@ -16,8 +16,8 @@ public class OrderDaoCreateOrderTestSuite {
 
     @Test
     public void testCreateCustomOrderForOrdersDao_returnObject(){
-        OrderModel actualResult = sut.createCustomOrder(6, "item1", "test", 0, "10/01/1011", "test");
-        OrderModel extraResult = sut.followUpCreateCustomOrder(6);
+        OrderModel actualResult = sut.createCustomOrder(7, "item1", "test", 0, "10/01/1011", "test");
+        OrderModel extraResult = sut.followUpCreateCustomOrder(7, "item1", "test", 0, "10/01/1011", "test");
 
         System.out.println(actualResult);
         System.out.println(extraResult);

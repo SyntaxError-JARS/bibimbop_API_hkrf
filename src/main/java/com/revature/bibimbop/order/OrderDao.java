@@ -27,7 +27,7 @@ public class OrderDao {
                 throw new RuntimeException();
             }
 
-            followUpCreateCustomOrder(id);
+            followUpCreateCustomOrder(id, menuItem,comment,isFavorite, orderDate, customerUsername);
 
         }catch (SQLException e){
             e.printStackTrace();
@@ -36,7 +36,7 @@ public class OrderDao {
         return null;
     }
 
-    public OrderModel followUpCreateCustomOrder(int id) {
+    public OrderModel followUpCreateCustomOrder(int id, String menuItem, String comment, int isFavorite, String orderDate, String customerUsername) {
         Connection conn = ConnectionFactory.getInstance().getConnection();
 
         try {
@@ -85,16 +85,18 @@ public class OrderDao {
 
             while (rs.next()) {
 
-                OrderModel modelOrder = new OrderModel();
+                OrderModel OrderModel = new OrderModel();
 
-                modelOrder.setId(rs.getInt("id"));
-                modelOrder.setMenuItem(rs.getString("menu_item"));
-                modelOrder.setComment(rs.getString("comment"));
-                modelOrder.setIsFavorite(rs.getInt("is_favorite"));
-                modelOrder.setOrderDate(rs.getString("order_date"));
-                modelOrder.setCustomerUsername(rs.getString("customer_username"));
 
-                orders[index] = modelOrder;
+                OrderModel.setId(rs.getInt("id"));
+                OrderModel.setMenuItem(rs.getString("menu_item"));
+                OrderModel.setComment(rs.getString("comment"));
+                OrderModel.setIsFavorite(rs.getInt("is_favorite"));
+                OrderModel.setOrderDate(rs.getString("order_date"));
+                OrderModel.setCustomerUsername(rs.getString("customer_username"));
+
+
+                orders[index] = OrderModel;
                 index++;
 
             }
@@ -104,10 +106,6 @@ public class OrderDao {
         }
         return orders;
     }
-
-
-
-
 
 
 

@@ -29,7 +29,7 @@ public class OrderServlet extends HttpServlet {
 
         OrderModel addedOrder = oDao.createCustomOrder(pass.getId(), pass.getMenuItem(), pass.getComment(), pass.getIsFavorite(), pass.getOrderDate(), pass.getCustomerUsername());
 
-        OrderModel theOrder = oDao.followUpCreateCustomOrder(pass.getId());
+        OrderModel theOrder = oDao.followUpCreateCustomOrder(pass.getId(), pass.getMenuItem(), pass.getComment(), pass.getIsFavorite(), pass.getOrderDate(), pass.getCustomerUsername());
 
         String payload = mapper.writeValueAsString(theOrder);
 
@@ -52,18 +52,6 @@ public class OrderServlet extends HttpServlet {
         resp.setStatus(201);
     }
 
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        addHeads(req, resp);
-        OrderDTO pass = mapper.readValue(req.getInputStream(), OrderDTO.class);
 
-        OrderModel firstResult = oDao.createCustomOrder(pass.getId(), pass.getMenuItem(), pass.getComment(), pass.getIsFavorite(), pass.getOrderDate(), pass.getCustomerUsername());
-        OrderModel theObject = oDao.followUpCreateCustomOrder(pass.getId());
-
-        String payload = mapper.writeValueAsString(theObject);
-
-        resp.getWriter().write("Updated customer, as seen below \n");
-        resp.getWriter().write(payload);
-        resp.setStatus(201);
-    }
 
 }
