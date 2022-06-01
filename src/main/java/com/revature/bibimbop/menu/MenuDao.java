@@ -170,14 +170,14 @@ public class MenuDao {
                 return null;
             }
 
-            MenuModel updatedMenuItem = new MenuModel();
+            MenuModel updateMenuItem = new MenuModel();
 
-            updatedMenuItem.setMenuItem(rs.getString("menu_item"));
-            updatedMenuItem.setCost(rs.getDouble("cost"));
-            updatedMenuItem.setProtein(rs.getString("protein"));
-            updatedMenuItem.setIsSubstitutable(rs.getInt("is_substitutable"));
+            updateMenuItem.setCost(rs.getDouble("cost"));
+            updateMenuItem.setProtein(rs.getString("protein"));
+            updateMenuItem.setIsSubstitutable(rs.getInt("is_substitutable"));
+            updateMenuItem.setMenuItem(rs.getString("menu_item"));
 
-            return updatedMenuItem;
+            return updateMenuItem;
 
         }catch (SQLException e){
             e.printStackTrace();

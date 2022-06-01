@@ -40,7 +40,7 @@ public class CustomerServlet extends HttpServlet {
 //        addHeads(req, resp);
         CustomerDTO pass = mapper.readValue(req.getInputStream(), CustomerDTO.class);
 
-        CustomerModel firstResult = cDao.updateCustomer(pass.getCustomerUsername(), pass.getfName(), pass.getlName(), pass.getPassword(), pass.getBalance(), pass.getIsAdmin());
+        CustomerModel firstResult = cDao.updateCustomer(pass.getfName(), pass.getlName(), pass.getPassword(), pass.getBalance(), pass.getIsAdmin(), pass.getCustomerUsername());
         CustomerModel theObject = cDao.followUPUpdateCustomer(pass.getCustomerUsername());
 
         String payload = mapper.writeValueAsString(theObject);

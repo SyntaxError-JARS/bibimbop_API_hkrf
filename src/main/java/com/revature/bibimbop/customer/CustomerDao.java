@@ -1,5 +1,6 @@
 package com.revature.bibimbop.customer;
 
+import com.revature.bibimbop.credit_card.CreditCardModel;
 import com.revature.bibimbop.util.ConnectionFactory;
 
 import java.io.IOException;
@@ -133,12 +134,13 @@ public class CustomerDao {
     }
 
     //    // MVP - Update customer
-    public CustomerModel updateCustomer(String customerUsername, String fName, String lName, String password, double balance, Integer isAdmin) {
+    public CustomerModel updateCustomer(String fName, String lName, String password, double balance, Integer isAdmin, String customerUsername) {
         Connection conn = ConnectionFactory.getInstance().getConnection();
 
-        String sql = "update customer set fname = ?, lname = ?, password = ? balance = ? is_admin = ? where customer_username = ?";
+        String sql = "update customer set fname = ?, lname = ?, password = ?, balance = ?, is_admin = ? where customer_username = ? ";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
+
             ps.setString(1, fName);
             ps.setString(2, lName);
             ps.setString(3, password);
@@ -177,13 +179,12 @@ public class CustomerDao {
 
             CustomerModel updateCustomer = new CustomerModel();
 
-            updateCustomer.setCustomerUsername(rs.getString("customer_username"));
             updateCustomer.setfName(rs.getString("fname"));
             updateCustomer.setlName(rs.getString("lname"));
             updateCustomer.setPassword(rs.getString("password"));
             updateCustomer.setBalance(rs.getDouble("balance"));
             updateCustomer.setIsAdmin(rs.getInt("is_admin"));
-
+            updateCustomer.setCustomerUsername(rs.getString("customer_username"));
 
             return updateCustomer;
 

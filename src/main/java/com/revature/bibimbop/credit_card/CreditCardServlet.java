@@ -40,8 +40,8 @@ public class CreditCardServlet extends HttpServlet {
 //        addHeads(req, resp);
         CreditCardDTO pass = mapper.readValue(req.getInputStream(), CreditCardDTO.class);
 
-        CreditCardModel firstResult = cDao.updateCC(pass.getTableSelection(), pass.getNewCellName(), pass.getCcNumber());
-        CreditCardModel theObject = cDao.followUPUpdateCC(pass.getCcNumber());
+        CreditCardModel firstResult = cDao.updateCreditCard(pass.getCcName(), pass.getCvv(), pass.getExpDate(), pass.getZip(), pass.getLimits(), pass.getCustomerUsername(), pass.getCcNumber());
+        CreditCardModel theObject = cDao.followUPUpdateCreditCard(pass.getCcNumber());
 
         String payload = mapper.writeValueAsString(theObject);
 
