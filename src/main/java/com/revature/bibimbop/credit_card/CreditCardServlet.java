@@ -18,7 +18,13 @@ public class CreditCardServlet extends HttpServlet {
         this.mapper = mapper;
     }
 
-
+    @Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doOptions(req, resp);
+        resp.addHeader("Access-Control-Allow-Origin", "*");
+        resp.addHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+        resp.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    }
 
     //CREATE
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
