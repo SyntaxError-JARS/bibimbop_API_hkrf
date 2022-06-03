@@ -19,11 +19,11 @@ public class HibernateUtil {
     public static Session getSession() throws IOException {
         if(sessionFactory == null) {
             Configuration configuration = new Configuration();
-            Properties props = new Properties();
-            ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            props.load(loader.getResourceAsStream("hibernate.properties"));
+//            Properties props = new Properties();
+//            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+//            props.load(loader.getResourceAsStream("hibernate.properties"));
 
-            configuration.setProperties(props);
+//            configuration.setProperties(props);
             // TODO setup config with proper classes
             String url = System.getenv("SQLAZURECONNSTR_bibimbop");
             String username = System.getenv("DBUSER");

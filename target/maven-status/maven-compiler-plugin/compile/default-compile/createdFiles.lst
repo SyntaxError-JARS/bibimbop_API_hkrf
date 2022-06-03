@@ -8,7 +8,6 @@ com/revature/bibimbop/menu/MenuDTO.class
 com/revature/bibimbop/order/OrderDTO.class
 com/revature/bibimbop/customer/CustomerServlet.class
 com/revature/bibimbop/util/interfaces/Authable.class
-com/revature/bibimbop/util/HibernateUtil.class
 com/revature/bibimbop/credit_card/CreditCardDTO.class
 com/revature/bibimbop/menu/MenuDao.class
 com/revature/bibimbop/util/logging/Logger.class

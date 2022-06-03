@@ -11,10 +11,12 @@ import java.io.IOException;
 public class MenuServlet extends HttpServlet {
 
     private final MenuDao mDao;
+    private final MenuServices mServ;
     private final ObjectMapper mapper;
 
     public MenuServlet(MenuDao mDao, ObjectMapper mapper) {
         this.mDao = mDao;
+        this.mServ = mServ;
         this.mapper = mapper;
     }
 

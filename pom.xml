@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.revature</groupId>
-    <artifactId>ZahfoSha</artifactId>
+    <artifactId>bibimbop</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
@@ -13,6 +13,24 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
+<!--    <build>-->
+<!--        <pluginManagement>-->
+<!--            <plugins>-->
+<!--                <plugin>-->
+<!--                    <groupId>org.apache.tomcat.maven</groupId>-->
+<!--                    <artifactId>tomcat7-maven-plugin</artifactId>-->
+<!--                    <version>2.2</version>-->
+<!--                    <configuration>-->
+<!--                        <url>http://localhost:8080/manager/text</url>-->
+<!--                        <server>LocalTomcat</server>-->
+<!--                        <path>/bibimbop</path>-->
+<!--                        <update>true</update>-->
+<!--                    </configuration>-->
+<!--                </plugin>-->
+<!--            </plugins>-->
+<!--        </pluginManagement>-->
+<!--    </build>-->
 
     <build>
         <!-- https://docs.microsoft.com/en-us/azure/app-service/app-service-web-get-started-java -->
@@ -37,11 +55,11 @@
                     <schemaVersion>v2</schemaVersion>
                     <!-- App information -->
                     <!-- SUBSCRIPTION_ID Unique ID for the subscription that deploys the app-->
-                    <subscriptionId>9cc4b7e1-da29-4fd8-8ac8-1e56252688f4</subscriptionId>
+                    <subscriptionId>c61acc7a-78a5-437d-b663-110570574713</subscriptionId>
                     <!-- RESOURCEGROUP_NAME -->
                     <resourceGroup>SQLDatabase</resourceGroup>
                     <!-- WEBAPP_NAME -->
-                    <appName>zahfosha</appName>
+                    <appName>bibimbop</appName>
                     <!-- REGION -->
                     <region>East US</region>
                     <!-- Java Runtime Stack for App Service on Windows -->
@@ -67,6 +85,7 @@
         </plugins>
     </build>
 
+
     <dependencies>
         <!-- this is a comment -->
         <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
@@ -75,6 +94,7 @@
             <artifactId>postgresql</artifactId>
             <version>42.3.3</version>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
@@ -130,4 +150,5 @@
 
 
     </dependencies>
+
 </project>

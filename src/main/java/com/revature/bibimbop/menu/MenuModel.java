@@ -1,10 +1,21 @@
 package com.revature.bibimbop.menu;
 
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "menu")
 public class MenuModel {
 
+    @Id
+    @Column(name = "menu_item")
     private String menuItem;
     private double cost;
     private String protein;
+    @Column(name = "is_substitutable")
     private Integer isSubstitutable;
 
     public MenuModel(String menuItem, double cost, String protein, Integer isSubstitutable) {
