@@ -1,5 +1,7 @@
 package com.revature.bibimbop.credit_card;
 
+import java.math.BigDecimal;
+
 public class CreditCardDTO {
 
     private String ccNumber;
@@ -53,7 +55,7 @@ public class CreditCardDTO {
         this.zip = zip;
     }
 
-    public double getLimits() {
+    public BigDecimal getLimits() {
         return limits;
     }
 
