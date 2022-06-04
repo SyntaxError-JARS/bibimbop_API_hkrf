@@ -1,5 +1,7 @@
 package com.revature.bibimbop.util;
 
+import com.revature.bibimbop.credit_card.CreditCardModel;
+import com.revature.bibimbop.customer.CustomerModel;
 import com.revature.bibimbop.menu.MenuModel;
 import com.revature.bibimbop.order.OrderModel;
 import org.hibernate.Session;
@@ -39,6 +41,8 @@ public class HibernateUtil {
 
             configuration.addAnnotatedClass(MenuModel.class);
             configuration.addAnnotatedClass(OrderModel.class);
+            configuration.addAnnotatedClass(CustomerModel.class);
+            configuration.addAnnotatedClass(CreditCardModel.class);
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();

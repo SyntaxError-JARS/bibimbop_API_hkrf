@@ -1,22 +1,27 @@
 package com.revature.bibimbop.order;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.bibimbop.customer.CustomerDTO;
-import com.revature.bibimbop.customer.CustomerModel;
+import com.revature.bibimbop.menu.MenuModel;
+import com.revature.bibimbop.util.exceptions.InvalidRequestException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
+
+import static com.revature.bibimbop.util.interfaces.Headable.addHeads;
 
 public class OrderServlet extends HttpServlet {
 
     private final OrderDao oDao;
+    private final OrderServices oServ;
     private final ObjectMapper mapper;
 
-    public OrderServlet(OrderDao oDao, ObjectMapper mapper) {
+    public OrderServlet(OrderDao oDao, OrderServices oServ, ObjectMapper mapper) {
         this.oDao = oDao;
+        this.oServ = oServ;
         this.mapper = mapper;
     }
 
@@ -32,27 +37,30 @@ public class OrderServlet extends HttpServlet {
     //CREATE
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        addHeads(req, resp);
-        OrderDTO pass = mapper.readValue(req.getInputStream(), OrderDTO.class);
+        OrderModel addedOrder;
+        try {
+            OrderModel newOrder = mapper.readValue(req.getInputStream(), OrderModel.class);
+            addedOrder = oServ.create(newOrder);
+        } catch (InvalidRequestException e){
+            resp.getWriter().write(e.getMessage());
+            resp.setStatus(404);
+            return;
+        }
 
-        OrderModel addedOrder = oDao.createCustomOrder(pass.getId(), pass.getMenuItem(), pass.getComment(), pass.getIsFavorite(), pass.getOrderDate(), pass.getCustomerUsername());
+        String payload = mapper.writeValueAsString(addedOrder);
 
-        OrderModel theOrder = oDao.followUpCreateCustomOrder(pass.getId(), pass.getMenuItem(), pass.getComment(), pass.getIsFavorite(), pass.getOrderDate(), pass.getCustomerUsername());
-
-        String payload = mapper.writeValueAsString(theOrder);
-
-        resp.getWriter().write("Added the order, as seen below \n");
+        resp.getWriter().write("Added the new order, as seen below \n");
         resp.getWriter().write(payload);
         resp.setStatus(201);
     }
 
     //READ
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        addHeads(req, resp);
-        OrderDTO pass = mapper.readValue(req.getInputStream(), OrderDTO.class);
+        addHeads(req, resp);
 
-        OrderModel[] orders = oDao.viewAllByDate(pass.getTheDate());
+        List<OrderModel> gotDates = oDao.viewAllByDate();
 
-        String payload = mapper.writeValueAsString(orders);
+        String payload = mapper.writeValueAsString(gotDates);
 
         resp.getWriter().write("Orders populated, as seen below \n");
         resp.getWriter().write(payload);
