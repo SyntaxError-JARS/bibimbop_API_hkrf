@@ -7,6 +7,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.io.IOException;
 import java.util.List;
@@ -65,7 +66,7 @@ public class MenuDao {
     }
 
     //    // MVP - Update items to the menu
-    public MenuModel updateMenu(String menuItem, double cost, String protein, Integer isSubstitutable){
+    public MenuModel updateMenu(String menuItem, BigDecimal cost, String protein, Integer isSubstitutable){
         try {
             MenuModel updatedMenuItem = new MenuModel(menuItem, cost, protein, isSubstitutable);
             Session session = HibernateUtil.getSession();
