@@ -1,11 +1,13 @@
 package com.revature.bibimbop.customer;
 
+import java.math.BigDecimal;
+
 public class CustomerDTO {
     private String customerUsername;
     private String fName;
     private String lName;
     private String password;
-    private double balance;
+    private BigDecimal balance;
     private Integer isAdmin;
 
     public String getCustomerUsername() {
@@ -40,11 +42,11 @@ public class CustomerDTO {
         this.password = password;
     }
 
-    public double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
