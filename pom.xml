@@ -57,7 +57,7 @@
                     <!-- SUBSCRIPTION_ID Unique ID for the subscription that deploys the app-->
                     <subscriptionId>c61acc7a-78a5-437d-b663-110570574713</subscriptionId>
                     <!-- RESOURCEGROUP_NAME -->
-                    <resourceGroup>SQLDatabase</resourceGroup>
+                    <resourceGroup>bibimbop</resourceGroup>
                     <!-- WEBAPP_NAME -->
                     <appName>bibimbop</appName>
                     <!-- REGION -->
