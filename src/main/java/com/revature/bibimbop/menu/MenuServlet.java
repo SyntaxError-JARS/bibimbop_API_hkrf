@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.revature.bibimbop.util.interfaces.Headable.addHeads;
@@ -98,7 +99,7 @@ public class MenuServlet extends HttpServlet {
     //READ
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
-        List<MenuModel> gotTheMenu = mDao.findAllMenuItems();
+        ArrayList<MenuModel> gotTheMenu = mDao.findAllMenuItems();
 
         String payload = mapper.writeValueAsString(gotTheMenu);
 

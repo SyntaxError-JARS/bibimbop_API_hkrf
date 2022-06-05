@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.revature.bibimbop.util.interfaces.Headable.addHeads;
@@ -36,7 +37,7 @@ public class OrderServlet extends HttpServlet {
 
     //CREATE
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        addHeads(req, resp);
+        addHeads(req, resp);
         OrderModel addedOrder;
         try {
             OrderModel newOrder = mapper.readValue(req.getInputStream(), OrderModel.class);
@@ -58,7 +59,7 @@ public class OrderServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
 
-        List<OrderModel> gotDates = oDao.viewAllByDate();
+        ArrayList<OrderModel> gotDates = oDao.viewAllByDate();
 
         String payload = mapper.writeValueAsString(gotDates);
 

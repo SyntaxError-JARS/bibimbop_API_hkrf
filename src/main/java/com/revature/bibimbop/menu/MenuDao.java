@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MenuDao {
@@ -33,11 +34,11 @@ public class MenuDao {
 
 
     //    // MVP - View all items on the menu without needing to Register or Login
-    public List<MenuModel> findAllMenuItems(){
+    public ArrayList<MenuModel> findAllMenuItems(){
         try{
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
-            List<MenuModel> allMenuItemsList = session.createQuery("FROM MenuModel").list();
+            ArrayList<MenuModel> allMenuItemsList = (ArrayList<MenuModel>) session.createQuery("FROM MenuModel").list();
             transaction.commit();
             return allMenuItemsList;
         }catch (HibernateException | IOException e){

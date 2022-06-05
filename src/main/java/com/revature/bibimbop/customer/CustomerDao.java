@@ -1,12 +1,10 @@
 package com.revature.bibimbop.customer;
 
-import com.revature.bibimbop.util.interfaces.Crudable;
-import com.revature.bibimbop.credit_card.CreditCardModel;
-import com.revature.bibimbop.menu.MenuModel;
 import com.revature.bibimbop.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import com.revature.bibimbop.util.interfaces.Crudable;
 import com.revature.bibimbop.util.ConnectionFactory;
 
 import java.io.IOException;

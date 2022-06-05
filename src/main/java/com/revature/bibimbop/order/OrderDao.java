@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDao {
@@ -35,11 +36,11 @@ public class OrderDao {
     }
 
     // MVP - View past orders by date
-    public List<OrderModel> viewAllByDate(){
+    public ArrayList<OrderModel> viewAllByDate(){
         try{
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
-            List<OrderModel> ordersFoundByDate = session.createQuery("FROM OrderModel").list();
+            ArrayList<OrderModel> ordersFoundByDate = (ArrayList<OrderModel>) session.createQuery("FROM OrderModel").list();
             transaction.commit();
             return ordersFoundByDate;
         }catch (HibernateException | IOException e){

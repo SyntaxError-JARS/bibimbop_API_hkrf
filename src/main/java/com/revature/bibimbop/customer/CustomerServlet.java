@@ -3,9 +3,6 @@ package com.revature.bibimbop.customer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.bibimbop.util.exceptions.InvalidRequestException;
 
-import com.revature.bibimbop.menu.MenuDTO;
-import com.revature.bibimbop.menu.MenuModel;
-import com.revature.bibimbop.order.OrderModel;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,9 +17,9 @@ public class CustomerServlet extends HttpServlet {
     private final CustomerServices cServ;
     private final ObjectMapper mapper;
 
-    public CustomerServlet(CustomerDao cDao, CustomerServices cServ, CustomerServices cServ1, ObjectMapper mapper) {
+    public CustomerServlet(CustomerDao cDao, CustomerServices cServ, ObjectMapper mapper) {
         this.cDao = cDao;
-        this.cServ = cServ1;
+        this.cServ = cServ;
         this.mapper = mapper;
     }
 
