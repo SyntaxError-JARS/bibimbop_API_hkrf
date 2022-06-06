@@ -27,14 +27,13 @@ public class MenuServlet extends HttpServlet {
         this.mapper = mapper;
     }
 
-
     @Override
     protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doOptions(req, resp);
-        addHeads(req, resp);
-//        resp.addHeader("Access-Control-Allow-Origin", "*");
-//        resp.addHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-//        resp.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//        addHeads(req, resp);
+        resp.addHeader("Access-Control-Allow-Origin", "*");
+        resp.addHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+        resp.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
     }
 
 
@@ -64,6 +63,8 @@ public class MenuServlet extends HttpServlet {
     //UPDATE
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
+
+
         MenuDTO pass = mapper.readValue(req.getInputStream(), MenuDTO.class);
 
         MenuModel theResults = mDao.updateMenu(pass.getMenuItem(),pass.getCost(), pass.getProtein(), pass.getIsSubstitutable());
@@ -79,6 +80,7 @@ public class MenuServlet extends HttpServlet {
     //DELETE
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
+
         MenuDTO pass = mapper.readValue(req.getInputStream(), MenuDTO.class);
 
         try {
@@ -102,6 +104,7 @@ public class MenuServlet extends HttpServlet {
     //READ
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
+
         ArrayList<MenuModel> gotTheMenu = mDao.findAllMenuItems();
 
         String payload = mapper.writeValueAsString(gotTheMenu);

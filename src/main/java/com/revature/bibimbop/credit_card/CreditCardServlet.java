@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static com.revature.bibimbop.util.interfaces.Headable.addHeads;
-import static com.revature.bibimbop.util.interfaces.Authable.checkAuth;
+
 
 public class CreditCardServlet extends HttpServlet {
 
@@ -27,17 +27,15 @@ public class CreditCardServlet extends HttpServlet {
     @Override
     protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doOptions(req, resp);
-        addHeads(req, resp);
-//        resp.addHeader("Access-Control-Allow-Origin", "*");
-//        resp.addHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-//        resp.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//        addHeads(req, resp);
+        resp.addHeader("Access-Control-Allow-Origin", "*");
+        resp.addHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+        resp.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
     }
 
     //CREATE
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
-
-        if(!checkAuth(req, resp)){return;}
 
         CreditCardModel addedCreditCard;
         try {
@@ -60,8 +58,6 @@ public class CreditCardServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
 
-        if(!checkAuth(req, resp)){return;}
-
         CreditCardDTO pass = mapper.readValue(req.getInputStream(), CreditCardDTO.class);
 
         CreditCardModel firstResult = cDao.updateCreditCard(pass.getCcNumber(), pass.getCcName(), pass.getCvv(), pass.getExpDate(), pass.getZip(), pass.getLimits(), pass.getCustomerUsername());
@@ -77,7 +73,6 @@ public class CreditCardServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
 
-        if(!checkAuth(req, resp)){return;}
 
         CreditCardDTO pass = mapper.readValue(req.getInputStream(), CreditCardDTO.class);
 
