@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.revature.bibimbop.util.interfaces.Headable.addHeads;
+import static com.revature.bibimbop.util.interfaces.Authable.checkAuth;
 
 public class OrderServlet extends HttpServlet {
 
@@ -29,15 +30,19 @@ public class OrderServlet extends HttpServlet {
     @Override
     protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doOptions(req, resp);
-        resp.addHeader("Access-Control-Allow-Origin", "*");
-        resp.addHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-        resp.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//        resp.addHeader("Access-Control-Allow-Origin", "*");
+//        resp.addHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+//        resp.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        addHeads(req, resp);
     }
 
 
     //CREATE
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
+
+        if(!checkAuth(req, resp)){return;}
+
         OrderModel addedOrder;
         try {
             OrderModel newOrder = mapper.readValue(req.getInputStream(), OrderModel.class);

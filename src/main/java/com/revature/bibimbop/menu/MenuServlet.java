@@ -14,6 +14,7 @@ import java.util.List;
 
 import static com.revature.bibimbop.util.interfaces.Headable.addHeads;
 
+
 public class MenuServlet extends HttpServlet {
 
     private final MenuDao mDao;
@@ -30,15 +31,17 @@ public class MenuServlet extends HttpServlet {
     @Override
     protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doOptions(req, resp);
-        resp.addHeader("Access-Control-Allow-Origin", "*");
-        resp.addHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-        resp.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        addHeads(req, resp);
+//        resp.addHeader("Access-Control-Allow-Origin", "*");
+//        resp.addHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+//        resp.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
     }
 
 
     //CREATE
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doOptions(req, resp);
+//        super.doOptions(req, resp);
+        addHeads(req, resp);
 
         MenuModel addedItem;
         try {

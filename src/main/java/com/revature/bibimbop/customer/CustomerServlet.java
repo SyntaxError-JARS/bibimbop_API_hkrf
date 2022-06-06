@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static com.revature.bibimbop.util.interfaces.Headable.addHeads;
+import static com.revature.bibimbop.util.interfaces.Authable.checkAuth;
 
 public class CustomerServlet extends HttpServlet {
 
@@ -26,9 +27,10 @@ public class CustomerServlet extends HttpServlet {
     @Override
     protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doOptions(req, resp);
-        resp.addHeader("Access-Control-Allow-Origin", "*");
-        resp.addHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-        resp.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//        resp.addHeader("Access-Control-Allow-Origin", "*");
+//        resp.addHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+//        resp.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        addHeads(req, resp);
     }
     //CREATE
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -55,6 +57,9 @@ public class CustomerServlet extends HttpServlet {
     //UPDATE
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
+
+        if(!checkAuth(req, resp)){return;}
+
         CustomerDTO pass = mapper.readValue(req.getInputStream(), CustomerDTO.class);
 
         CustomerModel theResults = cDao.updateCustomer(pass.getCustomerUsername(),pass.getfName(), pass.getlName(), pass.getPassword(), pass.getBalance(), pass.getIsAdmin());
@@ -70,6 +75,8 @@ public class CustomerServlet extends HttpServlet {
     //DELETE
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
+
+        if(!checkAuth(req, resp)){return;}
         CustomerDTO pass = mapper.readValue(req.getInputStream(), CustomerDTO.class);
 
         boolean deleteTrue = cDao.deleteByCustomerUsername(pass.getCustomerUsername());

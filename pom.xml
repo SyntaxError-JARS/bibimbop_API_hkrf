@@ -14,23 +14,23 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
-<!--    <build>-->
-<!--        <pluginManagement>-->
-<!--            <plugins>-->
-<!--                <plugin>-->
-<!--                    <groupId>org.apache.tomcat.maven</groupId>-->
-<!--                    <artifactId>tomcat7-maven-plugin</artifactId>-->
-<!--                    <version>2.2</version>-->
-<!--                    <configuration>-->
-<!--                        <url>http://localhost:8080/manager/text</url>-->
-<!--                        <server>LocalTomcat</server>-->
-<!--                        <path>/bibimbop</path>-->
-<!--                        <update>true</update>-->
-<!--                    </configuration>-->
-<!--                </plugin>-->
-<!--            </plugins>-->
-<!--        </pluginManagement>-->
-<!--    </build>-->
+    <!--    <build>-->
+    <!--        <pluginManagement>-->
+    <!--            <plugins>-->
+    <!--                <plugin>-->
+    <!--                    <groupId>org.apache.tomcat.maven</groupId>-->
+    <!--                    <artifactId>tomcat7-maven-plugin</artifactId>-->
+    <!--                    <version>2.2</version>-->
+    <!--                    <configuration>-->
+    <!--                        <url>http://localhost:8080/manager/text</url>-->
+    <!--                        <server>LocalTomcat</server>-->
+    <!--                        <path>/bibimbop</path>-->
+    <!--                        <update>true</update>-->
+    <!--                    </configuration>-->
+    <!--                </plugin>-->
+    <!--            </plugins>-->
+    <!--        </pluginManagement>-->
+    <!--    </build>-->
 
     <build>
         <!-- https://docs.microsoft.com/en-us/azure/app-service/app-service-web-get-started-java -->
