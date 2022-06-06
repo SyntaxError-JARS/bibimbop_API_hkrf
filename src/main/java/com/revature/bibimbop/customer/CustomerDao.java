@@ -1,197 +1,91 @@
 package com.revature.bibimbop.customer;
 
+import com.revature.bibimbop.util.HibernateUtil;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import com.revature.bibimbop.util.interfaces.Crudable;
 import com.revature.bibimbop.util.ConnectionFactory;
 
 import java.io.IOException;
-import java.sql.*;
+import java.math.BigDecimal;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+
+import java.io.IOException;
+
 
 public class CustomerDao {
 
     //    // MVP - Add items to the menu
-    public CustomerModel createCustomer(String customerUsername, String fName, String lName, String password, double balance, Integer isAdmin) {
-        try (Connection conn = ConnectionFactory.getInstance().getConnection();) {
-            String sql = "insert into customer values (?, ?, ?, ?, ?, ?)";
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            ps.setString(1, customerUsername);
-            ps.setString(2, fName);
-            ps.setString(3, lName);
-            ps.setString(4, password);
-            ps.setDouble(5, balance);
-            ps.setInt(6, isAdmin);
-
-            int checkInsert = ps.executeUpdate();
-
-            if (checkInsert == 0) {
-                throw new RuntimeException();
-            }
-
-            followUpCreateCustomer(customerUsername);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-        return null;
-    }
-
-    public CustomerModel followUpCreateCustomer(String customerUsername) {
-        Connection conn = ConnectionFactory.getInstance().getConnection();
-
+    public CustomerModel createCustomer(CustomerModel newCustomer) {
         try {
-            String sql2 = "select * from customer where customer_username = ?";
-            PreparedStatement ps = conn.prepareStatement(sql2);
-            ps.setString(1, customerUsername);
-
-            ResultSet rs = ps.executeQuery();
-
-            if (!rs.next()) {
-                return null;
-            }
-
-            CustomerModel newCustomerUsername = new CustomerModel();
-
-            newCustomerUsername.setCustomerUsername(rs.getString("customer_username"));
-            newCustomerUsername.setfName(rs.getString("fname"));
-            newCustomerUsername.setlName(rs.getString("lname"));
-            newCustomerUsername.setPassword(rs.getString("password"));
-            newCustomerUsername.setBalance(rs.getDouble("balance"));
-            newCustomerUsername.setIsAdmin(rs.getInt("is_admin"));
-
-            return newCustomerUsername;
-
-        } catch (SQLException e) {
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            session.save(newCustomer);
+            transaction.commit();
+            return newCustomer;
+        } catch (HibernateException | IOException e) {
             e.printStackTrace();
             return null;
+        } finally {
+            HibernateUtil.closeSession();
         }
     }
 
 
-    //    // MVP - View all items on the menu without needing to Register or Login
-    public CustomerModel[] findAllCustomers() throws IOException {
-        Connection conn = ConnectionFactory.getInstance().getConnection();
-
-        CustomerModel[] customerUsernames = new CustomerModel[20];
-
-        int index = 0;
-
+    public CustomerModel updateCustomer(String customerUsername, String fName, String lName, String password, BigDecimal balance, Integer isAdmin) {
         try {
-            String sql = "select * from customer";
-            Statement s = conn.createStatement();
+            CustomerModel updatedCustomer = new CustomerModel(customerUsername, fName, lName, password, balance, isAdmin);
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            session.merge(updatedCustomer);
+            transaction.commit();
 
-            ResultSet rs = s.executeQuery(sql);
-
-            while (rs.next()) {
-
-                CustomerModel fillInCustomer = new CustomerModel();
-
-                fillInCustomer.setCustomerUsername(rs.getString("customer_username"));
-                fillInCustomer.setfName(rs.getString("fname"));
-                fillInCustomer.setlName(rs.getString("lname"));
-                fillInCustomer.setPassword(rs.getString("password"));
-                fillInCustomer.setBalance(rs.getDouble("balance"));
-                fillInCustomer.setIsAdmin(rs.getInt("is_admin"));
-
-                customerUsernames[index] = fillInCustomer;
-                index++;
-
-            }
-
-        } catch (SQLException e) {
+        } catch (HibernateException | IOException e) {
             e.printStackTrace();
             return null;
+        } finally {
+            HibernateUtil.closeSession();
         }
-
-        return customerUsernames;
-
+        return followUpUpdateCustomer(customerUsername);
     }
 
-    //     MVP - Delete customer
-    public boolean deleteByCustomer(String customerUsername) {
-        Connection conn = ConnectionFactory.getInstance().getConnection();
-        {
-            String sql = "delete from customer where customer_username = ?";
-
-            try {
-                PreparedStatement ps = conn.prepareStatement(sql);
-                ps.setString(1, customerUsername);
-
-                int checkInsert = ps.executeUpdate();
-
-                if (checkInsert == 0) {
-                    throw new RuntimeException();
-                }
-
-                return true;
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return false;
-            }
-
-        }
-
-    }
-
-    //    // MVP - Update customer
-    public CustomerModel updateCustomer(String customerUsername, String fName, String lName, String password, double balance, Integer isAdmin) {
-        Connection conn = ConnectionFactory.getInstance().getConnection();
-
-        String sql = "update customer set fname = ?, lname = ?, password = ? balance = ? is_admin = ? where customer = ?";
+    public CustomerModel followUpUpdateCustomer(String customerUsername) {
         try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, fName);
-            ps.setString(2, lName);
-            ps.setString(3, password);
-            ps.setDouble(4, balance);
-            ps.setInt(5, isAdmin);
-            ps.setString(6, customerUsername);
-
-            int checkInsert = ps.executeUpdate();
-
-            if (checkInsert == 0) {
-                throw new RuntimeException();
-            }
-
-            followUPUpdateCustomer(customerUsername);
-
-        } catch (SQLException e) {
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            CustomerModel foundCustomer = session.get(CustomerModel.class, customerUsername);
+            transaction.commit();
+            return foundCustomer;
+        } catch (HibernateException | IOException e) {
             e.printStackTrace();
             return null;
+        } finally {
+            HibernateUtil.closeSession();
         }
-        return null;
     }
 
-    public CustomerModel followUPUpdateCustomer(String customerUsername) {
-        Connection conn = ConnectionFactory.getInstance().getConnection();
 
+    public boolean deleteByCustomerUsername(String customerUsername) {
         try {
-            String sql = "select * from customer where customer_username = ?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, customerUsername);
-
-            ResultSet rs = ps.executeQuery();
-
-            if (!rs.next()) {
-                return null;
-            }
-
-            CustomerModel updatedCustomer = new CustomerModel();
-
-            updatedCustomer.setCustomerUsername(rs.getString("customer_username"));
-            updatedCustomer.setfName(rs.getString("fname"));
-            updatedCustomer.setlName(rs.getString("lname"));
-            updatedCustomer.setPassword(rs.getString("password"));
-            updatedCustomer.setBalance(rs.getDouble("balance"));
-            updatedCustomer.setIsAdmin(rs.getInt("is_admin"));
-
-
-            return updatedCustomer;
-
-        } catch (SQLException e) {
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            CustomerModel deletedCustomer = session.load(CustomerModel.class, customerUsername);
+            session.remove(deletedCustomer);
+            transaction.commit();
+            return true;
+        } catch (HibernateException | IOException e) {
             e.printStackTrace();
-            return null;
+            return false;
+        } finally {
+            HibernateUtil.closeSession();
         }
     }
+
+
+
 
 }
 

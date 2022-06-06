@@ -1,12 +1,24 @@
 package com.revature.bibimbop.order;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "orders")
 public class OrderModel {
 
+    @Id
     private Integer id;
+    @Column(name = "menu_item")
     private String menuItem;
     private String comment;
+    @Column(name = "is_favorite")
     private Integer isFavorite;
+    @Column(name = "order_date")
     private String orderDate;
+    @Column(name = "customer_username")
     private String customerUsername;
 
     public OrderModel(Integer id, String menuItem, String comment, Integer isFavorite, String orderDate, String customerUsername) {

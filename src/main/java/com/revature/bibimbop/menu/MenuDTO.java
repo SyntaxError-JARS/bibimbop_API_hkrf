@@ -1,11 +1,13 @@
 package com.revature.bibimbop.menu;
 
 
+import java.math.BigDecimal;
+
 public class MenuDTO {
 
 
     private String menuItem;
-    private double cost;
+    private BigDecimal cost;
     private String protein;
     private Integer isSubstitutable;
 
@@ -17,11 +19,11 @@ public class MenuDTO {
         this.menuItem = menuItem;
     }
 
-    public double getCost() {
+    public BigDecimal getCost() {
         return cost;
     }
 
-    public void setCost(double cost) {
+    public void setCost(BigDecimal cost) {
         this.cost = cost;
     }
 

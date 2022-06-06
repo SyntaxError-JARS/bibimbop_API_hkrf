@@ -1,188 +1,103 @@
 package com.revature.bibimbop.menu;
 
+import com.revature.bibimbop.credit_card.CreditCardModel;
+import com.revature.bibimbop.order.OrderModel;
+import com.revature.bibimbop.util.HibernateUtil;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
-
-import com.revature.bibimbop.util.ConnectionFactory;
-
+import java.math.BigDecimal;
 import java.sql.*;
 import java.io.IOException;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class MenuDao {
 
     //    // MVP - Add items to the menu
-    public MenuModel createMenu(String menuItem, double cost, String protein, Integer isSubstitutable) {
-        try(Connection conn = ConnectionFactory.getInstance().getConnection();){
-            String sql = "insert into menu values (?, ?, ?, ?)";
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            ps.setString(1,menuItem);
-            ps.setDouble(2, cost);
-            ps.setString(3, protein);
-            ps.setInt(4, isSubstitutable);
-
-            int checkInsert = ps.executeUpdate();
-
-            if (checkInsert == 0){
-                throw new RuntimeException();
-            }
-
-            followUpCreateMenu(menuItem);
-
-        }catch (SQLException e){
-            e.printStackTrace();
-            return null;
-        }
-        return null;
-    }
-
-    public MenuModel followUpCreateMenu(String menuItem) {
-        Connection conn = ConnectionFactory.getInstance().getConnection();
-
+    public MenuModel createMenu(MenuModel newMenuItem) {
         try {
-            String sql2 = "select * from menu where menu_item = ?";
-            PreparedStatement ps = conn.prepareStatement(sql2);
-            ps.setString(1, menuItem);
-
-            ResultSet rs = ps.executeQuery();
-
-            if (!rs.next()) {
-                return null;
-            }
-
-            MenuModel newMenuItem = new MenuModel();
-
-            newMenuItem.setMenuItem(rs.getString("menu_item"));
-            newMenuItem.setCost(rs.getDouble("cost"));
-            newMenuItem.setProtein(rs.getString("protein"));
-            newMenuItem.setIsSubstitutable(rs.getInt("is_substitutable"));
-
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            session.save(newMenuItem);
+            transaction.commit();
             return newMenuItem;
-
-        }catch (SQLException e){
+        } catch (HibernateException | IOException e) {
             e.printStackTrace();
             return null;
+        } finally {
+            HibernateUtil.closeSession();
         }
     }
 
 
 
     //    // MVP - View all items on the menu without needing to Register or Login
-    public MenuModel[] findAllMenuItems() throws IOException {
-        Connection conn = ConnectionFactory.getInstance().getConnection();
-
-        MenuModel[] menuItems = new MenuModel[20];
-
-        int index = 0;
-
-        try {
-            String sql = "select * from menu";
-            Statement s = conn.createStatement();
-
-            ResultSet rs = s.executeQuery(sql);
-
-            while (rs.next()) {
-
-                MenuModel fillInMenu = new MenuModel();
-
-                fillInMenu.setMenuItem(rs.getString("menu_item"));
-                fillInMenu.setCost(rs.getDouble("cost"));
-                fillInMenu.setProtein(rs.getString("protein"));
-                fillInMenu.setIsSubstitutable(rs.getInt("is_substitutable"));
-
-                menuItems[index] = fillInMenu;
-                index++;
-
-            }
-
-        } catch (SQLException e) {
+    public ArrayList<MenuModel> findAllMenuItems(){
+        try{
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            ArrayList<MenuModel> allMenuItemsList = (ArrayList<MenuModel>) session.createQuery("FROM MenuModel").list();
+            transaction.commit();
+            return allMenuItemsList;
+        }catch (HibernateException | IOException e){
             e.printStackTrace();
             return null;
+        } finally {
+            HibernateUtil.closeSession();
         }
-
-        return menuItems;
-
     }
 
     //     MVP - Delete items to the menu
-    public boolean deleteByMenuItem(String menuItem) {
-        Connection conn = ConnectionFactory.getInstance().getConnection();{
-            String sql = "delete from menu where menu_item = ?";
-
-            try {
-                PreparedStatement ps = conn.prepareStatement(sql);
-                ps.setString(1, menuItem);
-
-                int checkInsert = ps.executeUpdate();
-
-                if (checkInsert == 0){
-                    throw new RuntimeException();
-                }
-
-                return true;
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
+    public boolean deleteByMenuItem(String menuItem){
+        try{
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            MenuModel deletedMenuItem = session.load(MenuModel.class, menuItem);
+            session.remove(deletedMenuItem);
+            transaction.commit();
+            return true;
+        } catch (HibernateException | IOException e){
+            e.printStackTrace();
+            return false;
+        }finally {
+            HibernateUtil.closeSession();
         }
-        return false;
     }
 
     //    // MVP - Update items to the menu
-    public MenuModel updateMenu(double cost, String protein, Integer isSubstitutable, String menuItem) {
-        Connection conn = ConnectionFactory.getInstance().getConnection();
-
-        String sql = "update menu set cost = ?, protein = ?, is_substitutable = ? where menu_item = ?";
+    public MenuModel updateMenu(String menuItem, BigDecimal cost, String protein, Integer isSubstitutable){
         try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setDouble(1, cost);
-            ps.setString(2, protein);
-            ps.setInt(3, isSubstitutable);
-            ps.setString(4, menuItem);
+            MenuModel updatedMenuItem = new MenuModel(menuItem, cost, protein, isSubstitutable);
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            session.merge(updatedMenuItem);
+            transaction.commit();
 
-            int checkInsert = ps.executeUpdate();
-
-            if (checkInsert == 0) {
-                throw new RuntimeException();
-            }
-
-            followUPUpdateMenu(menuItem);
-
-        } catch (SQLException e) {
+        } catch (HibernateException | IOException e){
             e.printStackTrace();
             return null;
+        } finally {
+            HibernateUtil.closeSession();
         }
-        return null;
+        return followUpUpdateMenu(menuItem);
     }
 
-    public MenuModel followUPUpdateMenu(String menuItem){
-        Connection conn = ConnectionFactory.getInstance().getConnection();
-
-        try {
-            String sql = "select * from menu where menu_item = ?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, menuItem);
-
-            ResultSet rs = ps.executeQuery();
-
-            if (!rs.next()) {
-                return null;
-            }
-
-            MenuModel updatedMenuItem = new MenuModel();
-
-            updatedMenuItem.setMenuItem(rs.getString("menu_item"));
-            updatedMenuItem.setCost(rs.getDouble("cost"));
-            updatedMenuItem.setProtein(rs.getString("protein"));
-            updatedMenuItem.setIsSubstitutable(rs.getInt("is_substitutable"));
-
-            return updatedMenuItem;
-
-        }catch (SQLException e){
+    public MenuModel followUpUpdateMenu(String menuItem){
+        try{
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            MenuModel foundMenuItem = session.get(MenuModel.class, menuItem);
+            transaction.commit();
+            return foundMenuItem;
+        }catch (HibernateException | IOException e){
             e.printStackTrace();
             return null;
+        } finally {
+            HibernateUtil.closeSession();
         }
     }
+
 
 }

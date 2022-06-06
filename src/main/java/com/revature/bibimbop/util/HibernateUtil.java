@@ -1,5 +1,9 @@
 package com.revature.bibimbop.util;
 
+import com.revature.bibimbop.credit_card.CreditCardModel;
+import com.revature.bibimbop.customer.CustomerModel;
+import com.revature.bibimbop.menu.MenuModel;
+import com.revature.bibimbop.order.OrderModel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -17,16 +21,28 @@ public class HibernateUtil {
     public static Session getSession() throws IOException {
         if(sessionFactory == null) {
             Configuration configuration = new Configuration();
-            Properties props = new Properties();
-            ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            props.load(loader.getResourceAsStream("hibernate.properties"));
+//            Properties props = new Properties();
+//            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+//            props.load(loader.getResourceAsStream("hibernate.properties"));
 
-            configuration.setProperties(props);
+//            configuration.setProperties(props);
             // TODO setup config with proper classes
-//            configuration.addAnnotatedClass(Trainer.class);
-//            configuration.addAnnotatedClass(Pokemon.class);
-//            configuration.addAnnotatedClass(ElementType.class);
-//            configuration.addAnnotatedClass(Ability.class);
+            String url = System.getenv("SQLAZURECONNSTR_bibimbop");
+            String username = System.getenv("DBUSER");
+            String password = System.getenv("DBPASS");
+
+            configuration.setProperty("hibernate.connection.url", url);
+            configuration.setProperty("hibernate.connection.username", username);
+            configuration.setProperty("hibernate.connection.password", password);
+            configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.SQLServerDialect");
+            configuration.setProperty("hibernate.connection.driver_class", "com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            configuration.setProperty("hibernate.show_sql", "true");
+            configuration.setProperty("hibernate.hbm2ddl.auto", "update");
+
+            configuration.addAnnotatedClass(MenuModel.class);
+            configuration.addAnnotatedClass(OrderModel.class);
+            configuration.addAnnotatedClass(CustomerModel.class);
+            configuration.addAnnotatedClass(CreditCardModel.class);
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();
@@ -47,7 +63,6 @@ public class HibernateUtil {
 
     }
 }
-
 
 
 

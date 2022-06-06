@@ -1,13 +1,25 @@
 package com.revature.bibimbop.menu;
 
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.math.BigDecimal;
+
+@Entity
+@Table(name = "menu")
 public class MenuModel {
 
+    @Id
+    @Column(name = "menu_item")
     private String menuItem;
-    private double cost;
+    private BigDecimal cost;
     private String protein;
+    @Column(name = "is_substitutable")
     private Integer isSubstitutable;
 
-    public MenuModel(String menuItem, double cost, String protein, Integer isSubstitutable) {
+    public MenuModel(String menuItem, BigDecimal cost, String protein, Integer isSubstitutable) {
         this.menuItem = menuItem;
         this.cost = cost;
         this.protein = protein;
@@ -19,6 +31,8 @@ public class MenuModel {
 
     }
 
+
+
     public String getMenuItem() {
         return menuItem;
     }
@@ -27,11 +41,11 @@ public class MenuModel {
         this.menuItem = menuItem;
     }
 
-    public double getCost() {
+    public BigDecimal getCost() {
         return cost;
     }
 
-    public void setCost(double cost) {
+    public void setCost(BigDecimal cost) {
         this.cost = cost;
     }
 

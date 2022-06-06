@@ -1,16 +1,18 @@
 package com.revature.bibimbop.credit_card;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+
 public class CreditCardModel {
     private String ccNumber;
     private String ccName;
     private Integer cvv;
     private String expDate;
     private Integer zip;
-    private Double limits;
+    private BigDecimal limits;
     private String customerUsername;
 
-    public CreditCardModel(String ccNumber, String ccName, Integer cvv, String expDate, Integer zip, Double limits, String customerUsername) {
+    public CreditCardModel(String ccNumber, String ccName, Integer cvv, String expDate, Integer zip, BigDecimal limits, String customerUsername) {
         this.ccNumber = ccNumber;
         this.ccName = ccName;
         this.cvv = cvv;
@@ -64,11 +66,11 @@ public class CreditCardModel {
         this.zip = zip;
     }
 
-    public Double getLimits() {
+    public BigDecimal getLimits() {
         return limits;
     }
 
-    public void setLimits(Double limits) {
+    public void setLimits(BigDecimal limits) {
         this.limits = limits;
     }
 
