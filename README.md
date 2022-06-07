@@ -26,7 +26,7 @@ View all items on the menu without needing to Register or Login
 
 # Tech Stack
 <ul>
-  <li>Java 8li>
+  <li>Java 8<li>
   <li> JUnit</li>
   <li> Mockito</li>
   <li> Apache Maven</li>
