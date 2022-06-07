@@ -1,12 +1,7 @@
-# bibimbop_API_hkrf
-- My Bibimbop app was developed for a small restaurant that is looking to help streamline the ordering process for customers to help reduce costs. Customers can enjoy an seamless means to order directly with an account of their own at the restaurant in question, where Admins are capable of adding and updating the menu items. This RESTful application leverages a tomcat server to handle incoming requests to thoroughly tested services that must be persisted using Hibernate and Azure SQL services. This project includes a front-end that will be developed using ReactJS to handle user requests.
-
-
-# This is bibimbop restaurant !!!
+# Project 1 : This is bibimbop restaurant !!!
 
 # Description
-
-Login, signup and view your order!!
+- My Bibimbop app was developed for a small restaurant that is looking to help streamline the ordering process for customers to help reduce costs. Customers can enjoy an seamless means to order directly with an account of their own at the restaurant in question, where Admins are capable of adding and updating the menu items. This RESTful application leverages a tomcat server to handle incoming requests to thoroughly tested services that must be persisted using Hibernate and Azure SQL services. This project includes a front-end that will be developed using ReactJS to handle user requests.
 
 # User Story
 As A: Admin
